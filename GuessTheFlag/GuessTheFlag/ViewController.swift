@@ -17,7 +17,9 @@ class ViewController: UIViewController {
     var buttons: [UIButton] = [UIButton]()
     var countries = [String]()
     var score = 0
+    var answeredQuestions = 0
     var correctAnswer = 0
+    var maxNumberOfAnswers = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,24 +43,45 @@ class ViewController: UIViewController {
         for (index, button) in buttons.enumerated() {
             button.setImage(UIImage(named: countries[index]), for: .normal)
         }
-        title =  countries[correctAnswer].uppercased()
+        title = countries[correctAnswer].uppercased()
+        title = "\(title!) - Score: \(score)"
+    }
+    
+    func endGame(action: UIAlertAction! = nil) {
+        for button in buttons {
+            button.isUserInteractionEnabled = false
+        }
+        title = "Final Score: \(score)"
     }
     
     
     @IBAction func buttonTapped(_ sender: UIButton) {
         var title: String
-        
+        var message: String
+        answeredQuestions += 1
         if sender.tag == correctAnswer {
             title = "Correct"
             score += 1
         } else {
-            title = "Wrong"
-            score -= 1
+            title = "Wrong, you've selected the flag of \(countries[sender.tag].uppercased())"
+            score = score > 0 ? score - 1 : 0
         }
-        
-        let alertController = UIAlertController(title: title, message: "Your score is: \(score)", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestteion))
-        present(alertController, animated: true)
+        if answeredQuestions >= maxNumberOfAnswers {
+            title = "You have reached the max number of answers (\(maxNumberOfAnswers))"
+            message = "Your final score is: \(score)"
+            showAlert(title: title, handler: endGame, message: message)
+        } else {
+            message = "Your score is: \(score)"
+            showAlert(title: title, handler: askQuestion, message: message)
+        }
+    }
+    
+    func showAlert(title: String, handler: ((UIAlertAction)-> Void)?, message: String = "",
+                   style: UIAlertController.Style = .alert, actionStyle: UIAlertAction.Style = .default,
+                   actionTitle: String = "Continue", animated: Bool = true) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        alertController.addAction(UIAlertAction(title: actionTitle, style: actionStyle, handler: handler))
+        present(alertController, animated: animated)
     }
 }
 
