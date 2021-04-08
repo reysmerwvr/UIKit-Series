@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         countries += ["estonia", "france", "germany", "ireland", "italy",
         "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareScore))
         buttons += [buttonOne, buttonTwo, buttonThree]
         configureButtons()
         askQuestion()
@@ -82,6 +83,12 @@ class ViewController: UIViewController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
         alertController.addAction(UIAlertAction(title: actionTitle, style: actionStyle, handler: handler))
         present(alertController, animated: animated)
+    }
+    
+    @objc func shareScore() {
+        let vc = UIActivityViewController(activityItems: ["Score: \(score)"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 
