@@ -11,9 +11,10 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["reysmerwvr.github.io/rv-resume", "hackingwithswift.com", "apple.com", "blocked-host.github.io/me"]
+    var selectedSite: String?
     let alertTitle = "Blocked host"
     var message: String!
+    var isHostPreLoaded = false
     
     override func loadView() {
         webView = WKWebView()
@@ -23,7 +24,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         let back = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
@@ -38,26 +39,28 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         
-        let url = URL(string: "https://" + websites[0])!
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
-    }
-    
-    @objc func openTapped() {
-        let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
-        for website in websites {
-            ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
+        if let websiteToLoad = selectedSite {
+            let url = URL(string: "https://" + websiteToLoad)!
+            webView.load(URLRequest(url: url))
+            webView.allowsBackForwardNavigationGestures = true
         }
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(ac, animated: true)
     }
     
-    func openPage(action: UIAlertAction) {
-        guard let actionTitle = action.title else { return }
-        guard let url = URL(string: "https://" + actionTitle) else { return }
-        webView.load(URLRequest(url: url))
-    }
+//    @objc func openTapped() {
+//        let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
+//        for website in websites {
+//            ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
+//        }
+//        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+//        ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+//        present(ac, animated: true)
+//    }
+    
+//    func openPage(action: UIAlertAction) {
+//        guard let actionTitle = action.title else { return }
+//        guard let url = URL(string: "https://" + actionTitle) else { return }
+//        webView.load(URLRequest(url: url))
+//    }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
@@ -74,15 +77,21 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         if let host = url?.host {
             message = "\(host) is blocked"
-            for website in websites {
-                if host.contains(website) {
+            if let websiteToLoad = selectedSite {
+                if host.contains(websiteToLoad) {
                     decisionHandler(.allow)
+                    isHostPreLoaded = true
                     return
                 } else if host == "reysmerwvr.github.io" {
                     decisionHandler(.allow)
+                    isHostPreLoaded = true
                     return
                 }
             }
+        }
+        if isHostPreLoaded {
+            decisionHandler(.allow)
+            return
         }
         if message != nil {
             showAlert(title: alertTitle, handler: nil, message: message)

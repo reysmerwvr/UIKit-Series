@@ -13,6 +13,7 @@
 		937B08342621095F0013463E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937B08322621095F0013463E /* Main.storyboard */; };
 		937B0836262109600013463E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937B0835262109600013463E /* Assets.xcassets */; };
 		937B0839262109600013463E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937B0837262109600013463E /* LaunchScreen.storyboard */; };
+		93976E4C26227BF700F00D0B /* SitesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93976E4B26227BF700F00D0B /* SitesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		937B0835262109600013463E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		937B0838262109600013463E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		937B083A262109600013463E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93976E4B26227BF700F00D0B /* SitesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				937B082E2621095F0013463E /* SceneDelegate.swift */,
 				937B08302621095F0013463E /* ViewController.swift */,
 				937B08322621095F0013463E /* Main.storyboard */,
+				93976E4B26227BF700F00D0B /* SitesTableViewController.swift */,
 				937B0835262109600013463E /* Assets.xcassets */,
 				937B0837262109600013463E /* LaunchScreen.storyboard */,
 				937B083A262109600013463E /* Info.plist */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93976E4C26227BF700F00D0B /* SitesTableViewController.swift in Sources */,
 				937B08312621095F0013463E /* ViewController.swift in Sources */,
 				937B082D2621095F0013463E /* AppDelegate.swift in Sources */,
 				937B082F2621095F0013463E /* SceneDelegate.swift in Sources */,
