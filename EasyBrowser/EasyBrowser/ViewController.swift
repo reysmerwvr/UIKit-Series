@@ -11,7 +11,9 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["reysmerwvr.github.io/rv-resume/", "hackingwithswift.com", "apple.com"]
+    var websites = ["reysmerwvr.github.io/rv-resume", "hackingwithswift.com", "apple.com", "blocked-host.github.io/me"]
+    let alertTitle = "Blocked host"
+    var message: String!
     
     override func loadView() {
         webView = WKWebView()
@@ -24,12 +26,14 @@ class ViewController: UIViewController, WKNavigationDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        let back = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
+        let forward = UIBarButtonItem(title: "Go", style: .plain, target: webView, action: #selector(webView.goForward))
         
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
         let progressButton = UIBarButtonItem(customView: progressView)
         
-        toolbarItems = [progressButton, spacer, refresh]
+        toolbarItems = [progressButton, spacer, back, forward, refresh]
         navigationController?.isToolbarHidden = false
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
@@ -69,6 +73,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         let url = navigationAction.request.url
         
         if let host = url?.host {
+            message = "\(host) is blocked"
             for website in websites {
                 if host.contains(website) {
                     decisionHandler(.allow)
@@ -79,7 +84,20 @@ class ViewController: UIViewController, WKNavigationDelegate {
                 }
             }
         }
+        if message != nil {
+            showAlert(title: alertTitle, handler: nil, message: message)
+        } else {
+            showAlert(title: alertTitle, handler: nil, message: alertTitle)
+        }
         decisionHandler(.cancel)
+    }
+    
+    func showAlert(title: String, handler: ((UIAlertAction)-> Void)?, message: String = "",
+                   style: UIAlertController.Style = .alert, actionStyle: UIAlertAction.Style = .default,
+                   actionTitle: String = "Continue", animated: Bool = true) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        alertController.addAction(UIAlertAction(title: actionTitle, style: actionStyle, handler: handler))
+        present(alertController, animated: animated)
     }
 }
 
