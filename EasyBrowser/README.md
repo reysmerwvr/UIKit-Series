@@ -26,6 +26,7 @@ Run the project.
 
 ## Screenshots
 
+![](easy-browser-menu.png)
 ![](easy-browser.png)
 
 ## Contribute
