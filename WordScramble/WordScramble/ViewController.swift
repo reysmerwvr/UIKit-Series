@@ -63,29 +63,32 @@ class ViewController: UITableViewController {
     
     func submit(_ answer: String) -> Void {
         let lowerAnswer = answer.lowercased()
-        let errorTItle: String
+        let errorTitle: String
         let errorMessage: String
+        
+        if answer.isEmpty || answer.isBlank {
+            errorTitle = "Empty word"
+            errorMessage = "Empty words are not allowed"
+            return showErrorMessage(errorTitle: errorTitle, errorMessage: errorMessage)
+        }
         
         if !isPossible(word: lowerAnswer) {
             guard let title = title else { return }
-            errorTItle = "Word not possible"
+            errorTitle = "Word not possible"
             errorMessage = "You can't spell that word from \(title.lowercased())"
-            showErrorMessage(errorTItle: errorTItle, errorMessage: errorMessage)
-            return
+            return showErrorMessage(errorTitle: errorTitle, errorMessage: errorMessage)
         }
         
         if !isOriginal(word: lowerAnswer) {
-            errorTItle = "Word already used"
+            errorTitle = "Word already used"
             errorMessage = "Be more original!"
-            showErrorMessage(errorTItle: errorTItle, errorMessage: errorMessage)
-            return
+            return showErrorMessage(errorTitle: errorTitle, errorMessage: errorMessage)
         }
         
         if !isReal(word: lowerAnswer) {
-            errorTItle = "Word not recognized"
+            errorTitle = "Word not recognized"
             errorMessage = "You can't just make them up, you know"
-            showErrorMessage(errorTItle: errorTItle, errorMessage: errorMessage)
-            return
+            return showErrorMessage(errorTitle: errorTitle, errorMessage: errorMessage)
         }
         
         usedWords.insert(answer, at: 0)
@@ -120,11 +123,17 @@ class ViewController: UITableViewController {
         return misspelledRange.location == NSNotFound
     }
     
-    func showErrorMessage(errorTItle: String, errorMessage: String) -> Void {
-        let ac = UIAlertController(title: errorTItle, message: errorMessage, preferredStyle: .alert)
+    func showErrorMessage(errorTitle: String, errorMessage: String) -> Void {
+        let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }
 
+}
+
+extension String {
+  var isBlank: Bool {
+    return allSatisfy({ $0.isWhitespace })
+  }
 }
 
