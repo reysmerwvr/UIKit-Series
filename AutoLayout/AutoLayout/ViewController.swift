@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,25 +42,28 @@ class ViewController: UIViewController {
         label5.text = "LABELS"
         label5.sizeToFit()
         
-//        let viewDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
-//        for (key, label) in viewDictionary {
-//            view.addSubview(label)
-//            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[\(key)]|",
-//                                                              options:[], metrics: nil, views: viewDictionary))
-//        }
-//
-//        let metrics = ["labelHeight": 88]
-//
-//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|",
-//                                                          options:[], metrics: metrics, views: viewDictionary))
+        //        let viewDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
+        //        for (key, label) in viewDictionary {
+        //            view.addSubview(label)
+        //            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[\(key)]|",
+        //                                                              options:[], metrics: nil, views: viewDictionary))
+        //        }
+        //
+        //        let metrics = ["labelHeight": 88]
+        //
+        //        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|",
+        //                                                          options:[], metrics: metrics, views: viewDictionary))
         
         
         var previous: UILabel?
         
         for label in [label1, label2, label3, label4, label5] {
             view.addSubview(label)
-            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-            label.heightAnchor.constraint(equalToConstant: 88).isActive = true
+            //            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+//            label.heightAnchor.constraint(equalToConstant: 88).isActive = true
+            label.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1/5, constant: -10).isActive = true
             
             if let previous = previous {
                 label.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true
