@@ -1,4 +1,4 @@
-# UIKit-Series
+# AutoLayout
 
 > This project is about UIKit Examples and Demos based on [HackingWithSwift](https://github.com/twostraws/HackingWithSwift).
 
@@ -20,9 +20,13 @@
 
 UIKit-Series requires [iOS 11.4+](https://developer.apple.com/ios/) also requires [Xcode 11.3.1](https://developer.apple.com/xcode/) and [swift](https://developer.apple.com/swift/) to run.
 
-Download zip file and extract it [latest release](https://github.com/reysmerwvr/UIKit-Series). Or clone the repository and open it using Xcode.
+Download zip file and extract it [latest release](https://github.com/reysmerwvr/UIKit-Series/AutoLayout). Or clone the repository and open it using Xcode.
 
 Run the project.
+
+## Screenshots
+
+![](auto-layout.png)
 
 ## Contribute
 
@@ -30,8 +34,8 @@ We would love you for the contribution to **UIKit-Series**, check the ``LICENSE`
 
 ## Todos
 
-- [] Write tests
-- [] Add code comments
+- [ ] Write tests
+- [ ] Add code comments
 
 ## Meta
 
@@ -47,4 +51,3 @@ UIKit-Series is (c) 2021 Reysmer Valle ([@ReysmerWVR]) and may be freely distrib
 [license-url]: https://github.com/reysmerwvr/UIKit-Series/tree/master/LICENSE
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [@ReysmerWVR]: <http://twitter.com/ReysmerWVR>
-

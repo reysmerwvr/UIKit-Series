@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fS3-Bz-c3T">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fS3-Bz-c3T">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,6 +18,9 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86c-Ob-sTw">
                                 <rect key="frame" x="107" y="100" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="86c-Ob-sTw" secondAttribute="height" multiplier="2:1" id="kXj-ps-jLQ"/>
+                                </constraints>
                                 <state key="normal" image="us"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8cm-5z-fE6"/>
@@ -25,6 +28,9 @@
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4w5-mH-elG">
                                 <rect key="frame" x="107" y="230" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4w5-mH-elG" secondAttribute="height" multiplier="2:1" id="POh-JE-yNm"/>
+                                </constraints>
                                 <state key="normal" image="us"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gGw-s9-DNf"/>
@@ -32,6 +38,9 @@
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzn-Au-wmq">
                                 <rect key="frame" x="107" y="360" width="200" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qzn-Au-wmq" secondAttribute="height" multiplier="2:1" id="1UH-Ts-eGY"/>
+                                </constraints>
                                 <state key="normal" image="us"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3hF-Yd-Mg2"/>
@@ -44,9 +53,12 @@
                             <constraint firstItem="qzn-Au-wmq" firstAttribute="centerX" secondItem="4w5-mH-elG" secondAttribute="centerX" id="1H6-Z2-wox"/>
                             <constraint firstItem="4w5-mH-elG" firstAttribute="top" secondItem="86c-Ob-sTw" secondAttribute="bottom" constant="30" id="2l9-X5-Eo5"/>
                             <constraint firstItem="4w5-mH-elG" firstAttribute="centerX" secondItem="86c-Ob-sTw" secondAttribute="centerX" id="4OJ-DB-vjU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qzn-Au-wmq" secondAttribute="bottom" constant="20" id="7CH-04-xcE"/>
                             <constraint firstItem="86c-Ob-sTw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="DDJ-7x-2TE"/>
+                            <constraint firstItem="4w5-mH-elG" firstAttribute="height" secondItem="86c-Ob-sTw" secondAttribute="height" id="apN-VA-kAP"/>
                             <constraint firstItem="86c-Ob-sTw" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="gOA-7g-s5T"/>
                             <constraint firstItem="qzn-Au-wmq" firstAttribute="top" secondItem="4w5-mH-elG" secondAttribute="bottom" constant="30" id="sNt-pO-p7n"/>
+                            <constraint firstItem="qzn-Au-wmq" firstAttribute="height" secondItem="4w5-mH-elG" secondAttribute="height" id="vBq-zl-ahO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GPO-gH-nxw"/>
