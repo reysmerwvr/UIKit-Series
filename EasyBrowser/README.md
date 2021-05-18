@@ -35,8 +35,8 @@ We would love you for the contribution to **UIKit-Series**, check the ``LICENSE`
 
 ## Todos
 
-- [] Write tests
-- [] Add code comments
+- [ ] Write tests
+- [ ] Add code comments
 
 ## Meta
 
