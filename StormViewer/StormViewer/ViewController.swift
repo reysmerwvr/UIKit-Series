@@ -9,17 +9,20 @@ import UIKit
 
 class ViewController: UITableViewController {
     var pictures = [String]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Storm Viewer"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+        performSelector(inBackground: #selector(fetchImages), with: nil)
+    }
+    
+    @objc func fetchImages() {
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
-        
+        print(items)
         for item in items {
             if item.hasPrefix("nssl") {
                 // this is a picture to load
@@ -27,7 +30,9 @@ class ViewController: UITableViewController {
             }
         }
         pictures.sort()
-        print(items)
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,7 +54,7 @@ class ViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-
-
+    
+    
 }
 
