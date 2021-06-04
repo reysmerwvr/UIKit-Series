@@ -8,7 +8,6 @@
 import UIKit
 
 class ViewController: UITableViewController {
-    
     var petitions = [Petition]()
     var filteredPetitions: [Petition] = []
     let searchController = UISearchController(searchResultsController: nil)
@@ -19,7 +18,6 @@ class ViewController: UITableViewController {
     var isFiltering: Bool {
         return searchController.isActive && !isSearchBarEmpty
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,9 +66,10 @@ class ViewController: UITableViewController {
         
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
             petitions = jsonPetitions.results
-//            DispatchQueue.main.async { [weak self] in
-//            }
-            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
+//            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
         } else {
             performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
         }
@@ -109,7 +108,6 @@ class ViewController: UITableViewController {
         
         tableView.reloadData()
     }
-    
 }
 
 extension ViewController: UISearchResultsUpdating {

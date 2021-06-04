@@ -8,7 +8,6 @@
 import UIKit
 
 class ViewController: UITableViewController {
-    
     var petitions = [Petition]()
     var filteredPetitions: [Petition] = []
     let searchController = UISearchController(searchResultsController: nil)
@@ -19,7 +18,6 @@ class ViewController: UITableViewController {
     var isFiltering: Bool {
         return searchController.isActive && !isSearchBarEmpty
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +96,6 @@ class ViewController: UITableViewController {
         
         tableView.reloadData()
     }
-    
 }
 
 extension ViewController: UISearchResultsUpdating {

@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		938721792654513C00E5CB20 /* WhPetitions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhPetitions.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		938721792654513C00E5CB20 /* GrandCentralDispatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrandCentralDispatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9387217C2654513C00E5CB20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9387217E2654513C00E5CB20 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		938721802654513C00E5CB20 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		938721702654513B00E5CB20 = {
 			isa = PBXGroup;
 			children = (
-				9387217B2654513C00E5CB20 /* WhPetitions */,
+				9387217B2654513C00E5CB20 /* GrandCentralDispatch */,
 				9387217A2654513C00E5CB20 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +54,12 @@
 		9387217A2654513C00E5CB20 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				938721792654513C00E5CB20 /* WhPetitions.app */,
+				938721792654513C00E5CB20 /* GrandCentralDispatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9387217B2654513C00E5CB20 /* WhPetitions */ = {
+		9387217B2654513C00E5CB20 /* GrandCentralDispatch */ = {
 			isa = PBXGroup;
 			children = (
 				938721902654589E00E5CB20 /* Petition.swift */,
@@ -73,15 +73,15 @@
 				938721922654597600E5CB20 /* Petitions.swift */,
 				938721962654677B00E5CB20 /* DetailViewController.swift */,
 			);
-			path = WhPetitions;
+			path = GrandCentralDispatch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		938721782654513C00E5CB20 /* WhPetitions */ = {
+		938721782654513C00E5CB20 /* GrandCentralDispatch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9387218D2654513D00E5CB20 /* Build configuration list for PBXNativeTarget "WhPetitions" */;
+			buildConfigurationList = 9387218D2654513D00E5CB20 /* Build configuration list for PBXNativeTarget "GrandCentralDispatch" */;
 			buildPhases = (
 				938721752654513C00E5CB20 /* Sources */,
 				938721762654513C00E5CB20 /* Frameworks */,
@@ -91,9 +91,9 @@
 			);
 			dependencies = (
 			);
-			name = WhPetitions;
+			name = GrandCentralDispatch;
 			productName = WhPetitions;
-			productReference = 938721792654513C00E5CB20 /* WhPetitions.app */;
+			productReference = 938721792654513C00E5CB20 /* GrandCentralDispatch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -110,7 +110,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 938721742654513B00E5CB20 /* Build configuration list for PBXProject "WhPetitions" */;
+			buildConfigurationList = 938721742654513B00E5CB20 /* Build configuration list for PBXProject "GrandCentralDispatch" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -123,7 +123,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				938721782654513C00E5CB20 /* WhPetitions */,
+				938721782654513C00E5CB20 /* GrandCentralDispatch */,
 			);
 		};
 /* End PBXProject section */
@@ -300,7 +300,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DDRFB5R3W8;
-				INFOPLIST_FILE = WhPetitions/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GrandCentralDispatch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -319,7 +319,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DDRFB5R3W8;
-				INFOPLIST_FILE = WhPetitions/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GrandCentralDispatch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +334,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		938721742654513B00E5CB20 /* Build configuration list for PBXProject "WhPetitions" */ = {
+		938721742654513B00E5CB20 /* Build configuration list for PBXProject "GrandCentralDispatch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9387218B2654513D00E5CB20 /* Debug */,
@@ -343,7 +343,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9387218D2654513D00E5CB20 /* Build configuration list for PBXNativeTarget "WhPetitions" */ = {
+		9387218D2654513D00E5CB20 /* Build configuration list for PBXNativeTarget "GrandCentralDispatch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9387218E2654513D00E5CB20 /* Debug */,
