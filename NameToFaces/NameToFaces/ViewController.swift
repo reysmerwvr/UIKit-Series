@@ -41,6 +41,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
+//        picker.sourceType = .camera
         present(picker, animated: true)
     }
     
@@ -70,7 +71,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     
     
     func editName(person: Person) {
-        let ac = UIAlertController(title: "Rename person", message: nil, preferredStyle: .alert)
+        let ac = UIAlertController(title: "Rename", message: nil, preferredStyle: .alert)
         ac.addTextField()
         
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
