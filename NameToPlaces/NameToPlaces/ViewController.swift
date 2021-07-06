@@ -9,12 +9,27 @@ import UIKit
 
 class ViewController: UICollectionViewController {
     var places = [Place]()
+    var imagesCount = [String: Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Storm Viewer"
         navigationController?.navigationBar.prefersLargeTitles = true
-        performSelector(inBackground: #selector(fetchImages), with: nil)
+        
+        let defaults = UserDefaults.standard
+        imagesCount = defaults.object(forKey: "imagesCount") as? [String: Int] ?? [String: Int]()
+        if let savedPlaces = defaults.object(forKey: "places") as? Data {
+            let jsonDecoder = JSONDecoder()
+            do {
+                places = try jsonDecoder.decode([Place].self, from: savedPlaces)
+            } catch {
+                print("Failed to load places.")
+            }
+        }
+        if places.count <= 0 {
+            performSelector(inBackground: #selector(fetchImages), with: nil)
+        }
+        print(imagesCount)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -42,6 +57,13 @@ class ViewController: UICollectionViewController {
         if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? DetailViewController {
             let place = places[indexPath.item]
             vc.selectedImage = place.image
+            if let imageCount = imagesCount[place.image] {
+                imagesCount[place.image] = imageCount + 1
+            } else {
+                imagesCount[place.image] = 1
+            }
+            let defaults = UserDefaults.standard
+            defaults.set(imagesCount, forKey: "imagesCount")
             if let index = places.firstIndex(where: { $0.image == vc.selectedImage }) {
                 vc.imagePosition = "Picture \(index + 1) of \(places.count)"
             }
@@ -59,11 +81,23 @@ class ViewController: UICollectionViewController {
                 // this is a picture to load
                 let place = Place(name: item, image: item)
                 places.append(place)
+                save()
             }
         }
         places.sort()
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
+        }
+    }
+    
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedData = try? jsonEncoder.encode(places) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "places")
+        } else {
+            print("Failed to save places.")
         }
     }
     
