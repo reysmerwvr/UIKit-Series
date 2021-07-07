@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Place: Comparable {
+class Place: Comparable, Codable {
     static func < (lhs: Place, rhs: Place) -> Bool {
         return lhs.image < rhs.image
     }
