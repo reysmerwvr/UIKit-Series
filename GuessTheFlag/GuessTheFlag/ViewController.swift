@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let defaults = UserDefaults.standard
+        print(defaults.integer(forKey: "highestScore"))
         countries += ["estonia", "france", "germany", "ireland", "italy",
         "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareScore))
@@ -70,6 +72,12 @@ class ViewController: UIViewController {
         if answeredQuestions >= maxNumberOfAnswers {
             title = "You have reached the max number of answers (\(maxNumberOfAnswers))"
             message = "Your final score is: \(score)"
+            let defaults = UserDefaults.standard
+            let highestScore = defaults.integer(forKey: "highestScore")
+            if score > highestScore {
+                defaults.set(score, forKey: "highestScore")
+                message = "Your new highest score is: \(score)"
+            }
             showAlert(title: title, handler: endGame, message: message)
         } else {
             message = "Your score is: \(score)"
