@@ -33,7 +33,7 @@ Run the project.
 
 We would love you for the contribution to **UIKit-Series**, check the ``LICENSE`` file for more info.
 
-## Todos
+## TODO
 
 - [ ] Write tests
 - [ ] Add code comments
