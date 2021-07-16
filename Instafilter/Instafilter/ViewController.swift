@@ -9,9 +9,11 @@ import CoreImage
 import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var intensity: UISlider!
+    @IBOutlet var changeFilter: UIButton!
+    
     var currentImage: UIImage!
     
     var context: CIContext!
@@ -25,6 +27,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         context = CIContext()
         currentFilter = CIFilter(name: "CISepiaTone")
+        changeFilter.setTitle(currentFilter.name, for: .normal)
     }
     
     @objc func importPicture() {
@@ -44,7 +47,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
         applyProcessing()
     }
-
+    
     @IBAction func changeFilter(_ sender: UIButton) {
         let ac = UIAlertController(title: "Choose filter", message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "CIBumpDistortion", style: .default, handler: setFilter))
@@ -64,10 +67,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func setFilter(action: UIAlertAction) -> Void {
-        guard currentImage != nil else {
+        guard let actionTitle = action.title else {
             return
         }
-        guard let actionTitle = action.title else {
+        changeFilter.setTitle(actionTitle, for: .normal)
+        guard currentImage != nil else {
             return
         }
         currentFilter = CIFilter(name: actionTitle)
@@ -77,15 +81,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         applyProcessing()
     }
-
-
+    
+    
     @IBAction func save(_ sender: Any) {
         guard let image = imageView.image else {
+            showAlert(title: "No image selected", message: "You must select an image before saving an image")
             return
         }
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
-
+    
     @IBAction func intensityChange(_ sender: Any) {
         applyProcessing()
     }
@@ -120,14 +125,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        var title: String!
+        var message: String!
         if let error = error {
-            let ac = UIAlertController(title: "Save Error", message: error.localizedDescription, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            title = "Save Error"
+            message = error.localizedDescription
         } else {
-            let ac = UIAlertController(title: "Saved", message: "Your modified image has been saved to your photos", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+            title = "Saved"
+            message = "Your modified image has been saved to your photos"
         }
+        showAlert(title: title, message: message)
+    }
+    
+    func showAlert(title: String, message: String, preferredStyle: UIAlertController.Style = .alert, animated: Bool = true, alertActionTitle: String = "OK", alertActionStyle: UIAlertAction.Style = .default) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+        ac.addAction(UIAlertAction(title: alertActionTitle, style: alertActionStyle))
+        present(ac, animated: animated)
     }
 }
 
