@@ -58,6 +58,10 @@ class WhackSlot: SKNode {
         if !isVisible { return }
         charNode.run(SKAction.moveBy(x: 0, y: -80, duration: 0.05))
         isVisible = false
+        if let mudParticle = SKEmitterNode(fileNamed: "MudParticle") {
+            mudParticle.position = charNode.position
+            addChild(mudParticle)
+        }
     }
     
     func hit() {

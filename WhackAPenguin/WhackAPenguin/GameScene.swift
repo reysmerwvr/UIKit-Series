@@ -69,6 +69,10 @@ class GameScene: SKScene {
                 whackSlot.charNode.xScale = 0.85
                 whackSlot.charNode.yScale = 0.85
                 score += 1
+                if let smokeParticle = SKEmitterNode(fileNamed: "SmokeParticle") {
+                    smokeParticle.position = whackSlot.position
+                    addChild(smokeParticle)
+                }
                 run(SKAction.playSoundFileNamed("whack.caf", waitForCompletion: false))
             }
         }
@@ -94,6 +98,7 @@ class GameScene: SKScene {
             gameOver.position = CGPoint(x: 512, y: 384)
             gameOver.zPosition = 1
             addChild(gameOver)
+            run(SKAction.playSoundFileNamed("gameover.caf", waitForCompletion: false))
             return
         }
         

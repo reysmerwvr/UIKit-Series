@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9358AEBC26B19C2400EC41C6 /* gameover.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9358AEBB26B19C2000EC41C6 /* gameover.caf */; };
+		9358AEBE26B1A25B00EC41C6 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9358AEBD26B1A25B00EC41C6 /* SmokeParticle.sks */; };
+		9358AEC026B1AD0400EC41C6 /* MudParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9358AEBF26B1AD0400EC41C6 /* MudParticle.sks */; };
 		93AF3C2426A1F8DD00215D55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF3C2326A1F8DD00215D55 /* AppDelegate.swift */; };
 		93AF3C2626A1F8DD00215D55 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 93AF3C2526A1F8DD00215D55 /* GameScene.sks */; };
 		93AF3C2A26A1F8DD00215D55 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF3C2926A1F8DD00215D55 /* GameScene.swift */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9358AEBB26B19C2000EC41C6 /* gameover.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gameover.caf; sourceTree = "<group>"; };
+		9358AEBD26B1A25B00EC41C6 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
+		9358AEBF26B1AD0400EC41C6 /* MudParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MudParticle.sks; sourceTree = "<group>"; };
 		93AF3C2026A1F8DD00215D55 /* WhackAPenguin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhackAPenguin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AF3C2326A1F8DD00215D55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93AF3C2526A1F8DD00215D55 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -68,10 +74,13 @@
 				93AF3C2B26A1F8DD00215D55 /* GameViewController.swift */,
 				93AF3C2D26A1F8DD00215D55 /* Main.storyboard */,
 				93AF3C3026A1F8E000215D55 /* Assets.xcassets */,
+				9358AEBD26B1A25B00EC41C6 /* SmokeParticle.sks */,
 				93AF3C3226A1F8E000215D55 /* Info.plist */,
 				93AF3C3A26A202E200215D55 /* WhackSlot.swift */,
 				93AF3C3E26A21F0F00215D55 /* whack.caf */,
 				93AF3C3F26A21F0F00215D55 /* whackBad.caf */,
+				9358AEBF26B1AD0400EC41C6 /* MudParticle.sks */,
+				9358AEBB26B19C2000EC41C6 /* gameover.caf */,
 			);
 			path = WhackAPenguin;
 			sourceTree = "<group>";
@@ -133,8 +142,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9358AEC026B1AD0400EC41C6 /* MudParticle.sks in Resources */,
+				9358AEBC26B19C2400EC41C6 /* gameover.caf in Resources */,
 				93AF3C4126A21F8000215D55 /* whackBad.caf in Resources */,
 				93AF3C2F26A1F8DD00215D55 /* Main.storyboard in Resources */,
+				9358AEBE26B1A25B00EC41C6 /* SmokeParticle.sks in Resources */,
 				93AF3C2626A1F8DD00215D55 /* GameScene.sks in Resources */,
 				93AF3C3126A1F8E000215D55 /* Assets.xcassets in Resources */,
 				93AF3C4026A21F7C00215D55 /* whack.caf in Resources */,
