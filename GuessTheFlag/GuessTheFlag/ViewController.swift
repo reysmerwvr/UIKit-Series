@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet var buttonOne: UIButton!
     @IBOutlet var buttonTwo: UIButton!
     @IBOutlet var buttonThree: UIButton!
@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard
         print(defaults.integer(forKey: "highestScore"))
         countries += ["estonia", "france", "germany", "ireland", "italy",
-        "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
+                      "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareScore))
         buttons += [buttonOne, buttonTwo, buttonThree]
         configureButtons()
@@ -59,6 +59,15 @@ class ViewController: UIViewController {
     
     
     @IBAction func buttonTapped(_ sender: UIButton) {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: []) {
+            sender.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        } completion: { finished in
+            sender.transform = .identity
+            self.validateAnswer(sender)
+        }
+    }
+    
+    func validateAnswer(_ sender: UIButton) {
         var title: String
         var message: String
         answeredQuestions += 1
