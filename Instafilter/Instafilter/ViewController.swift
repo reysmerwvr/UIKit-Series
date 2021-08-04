@@ -121,6 +121,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if let cgImage = context.createCGImage(ouputImage, from: ouputImage.extent) {
             let processedImage = UIImage(cgImage: cgImage)
             imageView.image = processedImage
+            imageView.alpha = 0
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseIn) {
+                self.imageView.alpha = 1
+            }
         }
     }
     

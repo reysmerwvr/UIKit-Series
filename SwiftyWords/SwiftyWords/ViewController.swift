@@ -130,7 +130,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        loadLevel()
+        //        loadLevel()
         performSelector(inBackground: #selector(loadLevel), with: nil)
     }
     
@@ -141,7 +141,14 @@ class ViewController: UIViewController {
         
         currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
         activatedButtons.append(sender)
-        sender.isHidden = true
+        
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 3, options: .curveEaseOut) {
+            //            sender.isHidden = true
+            sender.alpha = 0.0
+        } completion: { finished in
+            sender.isUserInteractionEnabled = false
+        }
+        
     }
     
     @objc func submitTapped(_ sender: UIButton) {
@@ -176,7 +183,9 @@ class ViewController: UIViewController {
         currentAnswer.text = ""
         
         for button in activatedButtons {
-            button.isHidden = false
+            //            button.isHidden = false
+            button.alpha = 1
+            button.isUserInteractionEnabled = true
         }
         
         activatedButtons.removeAll()
@@ -228,7 +237,7 @@ class ViewController: UIViewController {
         
         solutions.removeAll(keepingCapacity: true)
         performSelector(inBackground: #selector(loadLevel), with: nil)
-//        loadLevel()
+        //        loadLevel()
         
         for button in letterButtons {
             button.isHidden = false
