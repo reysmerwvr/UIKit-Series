@@ -12,11 +12,15 @@ class ActionViewController: UIViewController {
     @IBOutlet var script: UITextView!
     var pageTitle = ""
     var pageURL = ""
+    let scripts = ["script_1": "alert('Script 1')", "script_2": "alert('Script 2')"]
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        let barButtons = [UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done)), UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(selectScript))]
+        
+        navigationItem.rightBarButtonItems = barButtons
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -32,7 +36,13 @@ class ActionViewController: UIViewController {
                     self?.pageTitle = javaScriptValues["title"] as? String ?? ""
                     self?.pageURL = javaScriptValues["URL"] as? String ?? ""
                     
+                    let userPrevScript = self?.defaults.object(forKey: "userPrevScript") as? [String: String] ?? [String: String]()
+                    
+                    
                     DispatchQueue.main.async {
+                        if let pageUrl = self?.pageURL {
+                            self?.script.text = userPrevScript[pageUrl]
+                        }
                         self?.title = self?.pageTitle
                     }
                 }
@@ -42,6 +52,7 @@ class ActionViewController: UIViewController {
     
     @IBAction func done() {
         let item = NSExtensionItem()
+        defaults.set([self.pageURL: script.text], forKey: "userPrevScript")
         let argument: NSDictionary = ["customJavaScript": script.text]
         let webDictionary: NSDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: argument]
         let customJavaScript = NSItemProvider(item: webDictionary, typeIdentifier: kUTTypePropertyList as String)
@@ -68,6 +79,26 @@ class ActionViewController: UIViewController {
         
         let selectedRange = script.selectedRange
         script.scrollRangeToVisible(selectedRange)
+    }
+    
+    @objc func selectScript() {
+        let alertController = UIAlertController(title: "PreSelected Scripts", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Script 1", style: .default, handler: {
+            [weak self] action in
+            self?.setScript(action: action, key: "script_1")
+        }))
+        alertController.addAction(UIAlertAction(title: "Script 2", style: .default, handler: {
+            [weak self] action in
+            self?.setScript(action: action, key: "script_2")
+        }))
+        present(alertController, animated: true)
+    }
+    
+    func setScript(action: UIAlertAction, key: String) -> Void {
+        guard let scriptText = scripts[key] else {
+            return
+        }
+        script.text = scriptText
     }
     
 }
