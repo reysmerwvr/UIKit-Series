@@ -10,14 +10,18 @@ import SpriteKit
 class GameScene: SKScene {
     var gameTimer: Timer?
     var fireworks = [SKNode]()
+    var gameScore: SKLabelNode!
     
     let leftEdge = -22
     let bottomEdge = -22
     let rightEdge = 1024 + 22
+    var isGameOver = false
+    var roundsCounter = 0
+    var initalTimerInterval = 6.0
     
     var score = 0 {
         didSet {
-            
+            gameScore.text = "Score: \(score)"
         }
     }
     
@@ -28,10 +32,20 @@ class GameScene: SKScene {
         background.zPosition = -1
         addChild(background)
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
+        gameScore = SKLabelNode(fontNamed: "Chalkduster")
+        gameScore.text = "Score: 0"
+        gameScore.horizontalAlignmentMode = .right
+        gameScore.position = CGPoint(x: 980, y: 650)
+        gameScore.fontSize = 48
+        addChild(gameScore)
+        
+        gameTimer = Timer.scheduledTimer(timeInterval: initalTimerInterval, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
     }
     
     func createFirework(xMovement: CGFloat, x: Int, y: Int) -> Void {
+        if isGameOver {
+            return
+        }
         let node = SKNode()
         node.position = CGPoint(x: x, y: y)
         let firework = SKSpriteNode(imageNamed: "rocket")
@@ -65,7 +79,18 @@ class GameScene: SKScene {
     }
     
     @objc func launchFireworks() {
+        if isGameOver {
+            return
+        }
         let movementAmount: CGFloat = 1800
+        roundsCounter += 1
+        if roundsCounter >= 20 {
+            gameTimer?.invalidate()
+            gameTimer = Timer.scheduledTimer(timeInterval: initalTimerInterval - 1, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
+            roundsCounter = 0
+            isGameOver = true
+        }
+        
         switch Int.random(in: 0...3) {
         case 0:
             // fire, fire, straight up
