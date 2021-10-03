@@ -13,7 +13,7 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Register", style: .plain, target: self, action: #selector(registerLocal))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Schedule", style: .plain, target: self, action: #selector(scheduleLocal))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Schedule", style: .plain, target: self, action: #selector(scheduleLocalDefault))
     }
     
     @objc func registerLocal() {
@@ -28,26 +28,25 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         })
     }
     
-    @objc func scheduleLocal() {
+    @objc func scheduleLocalDefault() {
+        self.scheduleLocal(withDateInterval: false, forNextHours: 0.0, withTimeInterval: 3.0, withRepeats: false)
+    }
+    
+    @objc func scheduleLocal(withDateInterval isDateInterval: Bool = false, forNextHours hours: Double = 0.0, withTimeInterval timeInterval: Double = 5.0, withRepeats repeats: Bool = false) -> Void {
         registerCategories()
-        
         let center = UNUserNotificationCenter.current()
         center.removeAllDeliveredNotifications()
-        
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Late wake up call"
-        content.body = "The early bird catches the worm, but the second mouse get the cheese"
-        content.categoryIdentifier = "alarm"
-        content.userInfo = ["customData": "fizzbuzz"]
-        content.sound = .default
-        
-        var dateComponents = DateComponents()
-        dateComponents.hour = 10
-        dateComponents.minute = 30
-        //        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        
+        let content  = createNotificationContent(withTitle: "Late wake up call", withBody: "The early bird catches the worm, but the second mouse get the cheese", withCategoryIdentifier: "alarm", withUserInfo: ["customData": "fizzbuzz"], withSound: .default)
+        var trigger: UNNotificationTrigger
+        if (!isDateInterval) {
+            trigger = createIntervalNotificationTrigger(timeInterval: timeInterval, repeats: repeats)
+        } else {
+            let date = Date().addingTimeInterval(hours * 3600.0)
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.year, .month, .day,
+                                                          .hour, .minute, .second,], from: date)
+            trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: repeats)
+        }
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
     }
@@ -57,7 +56,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         center.delegate = self
         
         let show = UNNotificationAction(identifier: "show", title: "Tell me more", options: .foreground)
-        let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [], options: [])
+        let remind = UNNotificationAction(identifier: "remind", title: "Remind me later", options: .foreground)
+        let category = UNNotificationCategory(identifier: "alarm", actions: [show, remind], intentIdentifiers: [], options: [])
         
         center.setNotificationCategories([category])
     }
@@ -73,12 +73,33 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
                 print("Default identifier")
             case "show":
                 print("Show more information")
+            case "remind":
+                print("Remind later")
+                scheduleLocal(withDateInterval: true, forNextHours: 0.010) // 30 seconds
             default:
                 break
             }
         }
         
         completionHandler()
+    }
+    
+    func createNotificationContent(withTitle title: String, withBody body: String, withCategoryIdentifier categoryIdentifier: String, withUserInfo userInfo: Dictionary<String, String>, withSound sound: UNNotificationSound) -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.categoryIdentifier = categoryIdentifier
+        content.userInfo = userInfo
+        content.sound = sound
+        return content
+    }
+    
+    func createCalentarNotificationTrigger(dateMatching: DateComponents, repeats: Bool = false) -> UNNotificationTrigger {
+        return UNCalendarNotificationTrigger(dateMatching: dateMatching, repeats: repeats)
+    }
+    
+    func createIntervalNotificationTrigger(timeInterval: Double, repeats: Bool = false) -> UNNotificationTrigger {
+        return UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: repeats)
     }
     
 }
